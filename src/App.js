@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div>
       <Steps />
-      <Steps />
+      <DateCounter />
     </div>
   );
 }
@@ -73,6 +73,51 @@ function Steps() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function DateCounter() {
+  // create a step state
+  const [step, setStep] = useState(1);
+  const [count, setCount] = useState(0);
+  const date = new Date();
+
+  function decrementStep() {
+    if (step > 1) {
+      setStep((s) => s - 1);
+    }
+  }
+
+  function incrementStep() {
+    if (step >= 1) {
+      setStep((s) => s + 1);
+    }
+  }
+
+  function decrementCount() {
+    setCount((c) => c - step);
+  }
+
+  function incrementCount() {
+    setCount((c) => c + step);
+  }
+
+  date.setDate(date.getDate() + count);
+
+  return (
+    <div className="steps">
+      <h2 style={{ textAlign: "center" }}>
+        <button onClick={decrementStep}>-</button> Step: {step}
+        <button onClick={incrementStep}>+</button>
+      </h2>
+      <h2 style={{ textAlign: "center" }}>
+        <button onClick={decrementCount}>-</button> Counter: {count}
+        <button onClick={incrementCount}>+</button>
+      </h2>
+      <h3>
+        {count} days from today is: {date.toDateString()}
+      </h3>
     </div>
   );
 }
