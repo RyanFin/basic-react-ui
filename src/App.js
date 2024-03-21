@@ -7,6 +7,15 @@ const messages = [
 ];
 
 export default function App() {
+  return (
+    <div>
+      <Steps />
+      <Steps />
+    </div>
+  );
+}
+
+function Steps() {
   // const step = 1;
   // create a state variable
 
@@ -15,20 +24,22 @@ export default function App() {
 
   function handlePrevious() {
     if (step > 1) {
+      // call back function to update based on current value
       setStep((s) => s - 1);
     }
   }
 
   function handleNext() {
     if (step < 3) {
-      // use setstep to update the step state variable
+      // use setstep() setter to update the step state variable
       setStep((s) => s + 1);
     }
   }
 
   return (
-    <>
+    <div>
       {/* set isOpen to the opposite of what it currently is. ! is the negation operator in standard JS  */}
+      {/* call back function to update based on current value */}
       <button className="close" onClick={() => setIsOpen((isOpn) => !isOpn)}>
         &times;
       </button>
@@ -62,6 +73,6 @@ export default function App() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
