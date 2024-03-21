@@ -13,25 +13,23 @@ export default function App() {
   const [step, setStep] = useState(1); //default value 1
   const [isOpen, setIsOpen] = useState(true);
 
-  console.log(step);
-
   function handlePrevious() {
     if (step > 1) {
-      setStep(step - 1);
+      setStep((s) => s - 1);
     }
   }
 
   function handleNext() {
     if (step < 3) {
       // use setstep to update the step state variable
-      setStep(step + 1);
+      setStep((s) => s + 1);
     }
   }
 
   return (
-    <div>
+    <>
       {/* set isOpen to the opposite of what it currently is. ! is the negation operator in standard JS  */}
-      <button className="close" onClick={() => setIsOpen(!isOpen)}>
+      <button className="close" onClick={() => setIsOpen((isOpn) => !isOpn)}>
         &times;
       </button>
 
@@ -40,8 +38,8 @@ export default function App() {
         <div className="steps">
           <div className="numbers">
             <div className={step >= 1 ? "active" : ""}>1</div>
-            <div className={`${step >= 2 ? "active" : ""}`}>2</div>
-            <div className={`${step >= 3 ? "active" : ""}`}>3</div>
+            <div className={step >= 2 ? "active" : ""}>2</div>
+            <div className={step >= 3 ? "active" : ""}>3</div>
           </div>
 
           <p className="message">
@@ -64,6 +62,6 @@ export default function App() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
