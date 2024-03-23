@@ -79,20 +79,26 @@ function Steps() {
 
 function DateCounter() {
   // create a step state
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [count, setCount] = useState(0);
   const date = new Date();
 
-  function decrementStep() {
-    if (step > 1) {
-      setStep((s) => s - 1);
-    }
-  }
+  // function decrementStep() {
+  //   if (step > 1) {
+  //     setStep((s) => s - 1);
+  //   }
+  // }
 
-  function incrementStep() {
-    if (step >= 1) {
-      setStep((s) => s + 1);
-    }
+  // function incrementStep() {
+  //   if (step >= 1) {
+  //     setStep((s) => s + 1);
+  //   }
+  // }
+
+  function handleClick() {
+    // reset the step and count values
+    setStep(0);
+    setCount(0);
   }
 
   function decrementCount() {
@@ -106,18 +112,38 @@ function DateCounter() {
   date.setDate(date.getDate() + count);
 
   return (
+    // make input bar a controlled element 'controlled' in terms of React being able to control it
     <div className="steps">
       <h2 style={{ textAlign: "center" }}>
-        <button onClick={decrementStep}>-</button> Step: {step}
-        <button onClick={incrementStep}>+</button>
+        <div>
+          {/* tie state to the 'uncontrolled' input field to make it 'controlled' */}
+          <input
+            type="range"
+            min="0"
+            max="30"
+            value={step}
+            onChange={(e) => setStep(Number(e.target.value))}
+          />
+          <p>{step}</p>
+        </div>
       </h2>
       <h2 style={{ textAlign: "center" }}>
-        <button onClick={decrementCount}>-</button> Counter: {count}
+        <button onClick={decrementCount}>-</button>
+        <input
+          type="text"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+        ></input>
         <button onClick={incrementCount}>+</button>
+        <p>
+          <br></br>
+          {count} days from today is: {date.toDateString()}
+        </p>
+        {/* add conditional rendering for the reset button */}
+        {(count !== 0 || step !== 0) && (
+          <button onClick={handleClick}>Reset</button>
+        )}
       </h2>
-      <h3>
-        {count} days from today is: {date.toDateString()}
-      </h3>
     </div>
   );
 }
